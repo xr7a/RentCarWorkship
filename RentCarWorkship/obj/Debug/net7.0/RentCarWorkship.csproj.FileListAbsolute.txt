@@ -1,0 +1,7 @@
+C:\Users\Иван Десятов\RiderProjects\RentCarWorkship\RentCarWorkship\obj\Debug\net7.0\RentCarWorkship.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Иван Десятов\RiderProjects\RentCarWorkship\RentCarWorkship\obj\Debug\net7.0\RentCarWorkship.AssemblyInfoInputs.cache
+C:\Users\Иван Десятов\RiderProjects\RentCarWorkship\RentCarWorkship\obj\Debug\net7.0\RentCarWorkship.AssemblyInfo.cs
+C:\Users\Иван Десятов\RiderProjects\RentCarWorkship\RentCarWorkship\obj\Debug\net7.0\RentCarWorkship.csproj.CoreCompileInputs.cache
+C:\Users\Иван Десятов\RiderProjects\RentCarWorkship\RentCarWorkship\obj\Debug\net7.0\RentCarWorkship.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Иван Десятов\RiderProjects\RentCarWorkship\RentCarWorkship\obj\Debug\net7.0\RentCarWorkship.csproj.AssemblyReference.cache
+C:\Users\Иван Десятов\RiderProjects\RentCarWorkship\RentCarWorkship\obj\Debug\net7.0\RentCarWorkship.MvcApplicationPartsAssemblyInfo.cs
