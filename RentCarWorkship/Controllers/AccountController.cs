@@ -10,7 +10,7 @@ using RentCarWorkship.Models.Db;
 namespace RentCarWorkship.Controllers;
 
 [ApiController]
-[Route("account")]
+[Route("Account")]
 public class AccountController: BaseController
 {
     private readonly IAccountService _accountService;
