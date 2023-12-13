@@ -79,16 +79,7 @@ public class AccountController: BaseController
     [HttpPut("logout")]
     public async Task<IActionResult> LogOut()
     {
-        var id = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (int.TryParse(id, out var UserId))
-        {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
-        else
-        {
-            return Unauthorized();
-        }
-
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return Ok();
     }
     [HttpPut("expire-token/{token}")]

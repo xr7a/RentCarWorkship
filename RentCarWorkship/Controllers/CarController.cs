@@ -17,19 +17,19 @@ public class CarController : BaseController
     {
         this._carRepository = carRepository;
     }
-
+    [AllowAnonymous]
     [HttpGet("id")]
     public async Task<DbCar> GetCar(int id)
     {
         return await _carRepository.GetInfoById(id);
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> AddCar(DbCar car)
     {
         if (await _carRepository.CheckCar(car.CarId))
         {
-            return BadRequest("car already exist")
+            return BadRequest("car already exist");
         }
         else
         {
@@ -38,7 +38,7 @@ public class CarController : BaseController
         }
     }
 
-    [HttpPost]
+    [HttpPut]
     public async Task<IActionResult> UpdateCar(UpdateCarDto car)
     {
         if (await _carRepository.CheckCar(car.id))
@@ -49,20 +49,15 @@ public class CarController : BaseController
 
         return BadRequest("car with that id doesn`t exist");
     }
-
-    [Authorize]
+    
     [HttpDelete]
     public async Task<IActionResult> DeleteCar(int id)
     {
         if (await _carRepository.CheckCar(id))
         {
-            var rawUserId = HttpContext.User.FindFirstValue("id");
-            if (int.TryParse(rawUserId, out var UserId))
+            if (Id != await _carRepository.GetUserById(id))
             {
-                if (UserId != await _carRepository.GetUserById(id))
-                {
-                    return Unauthorized();
-                }
+                return Unauthorized();
             }
             _carRepository.DeleteCar(id);
             return Ok("car have been deleted");
