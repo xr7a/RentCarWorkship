@@ -18,8 +18,8 @@ public class AccountService: IAccountService
         return await _accountRepository.CreateAccount(account);
     }
 
-    public async Task<DbAccount> GetAccountData(string email, string password)
+    public async Task<DbAccount> GetAccountData(string username, string password)
     {
-        return await _accountRepository.GetAccountData(email, password);
+        return await _accountRepository.GetAccountData(username, password);
     }
 }

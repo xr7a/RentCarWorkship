@@ -36,9 +36,9 @@ public class JwtService : IJwtService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public async Task<bool> CheckAccount(string email)
+    public async Task<bool> CheckAccount(string username)
     {
-        return await _accountRepository.CheckAccount(email);
+        return await _accountRepository.CheckAccount(username);
     }
     
     public async Task<AuthDtoResponse> ExpireToken(string token)
@@ -51,7 +51,7 @@ public class JwtService : IJwtService
             throw new Exception("error on get account");
         }
 
-        var claims = Jwt.GetClaims(account.Id, account.Email, account.Username, account.Role);
+        var claims = Jwt.GetClaims(account.Id, account.Username, account.Role);
         var refreshToken = CreateToken(new List<Claim>(), 72);
         var accessToken = CreateToken(claims, 1);
         await _accountRepository.UpdateRefresh(token, DateTime.Now.AddHours(72));
@@ -61,7 +61,11 @@ public class JwtService : IJwtService
             RefreshToken = refreshToken
         };
     }
-    
-    
+
+    public async Task GetTokenById(int id)
+    {
+        
+    }
+
 
 }

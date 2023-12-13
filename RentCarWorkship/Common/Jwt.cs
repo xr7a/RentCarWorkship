@@ -8,11 +8,6 @@ public class Jwt
    {
       return ParserToken(token, "accountId");
    }
-   public static string? GetEmail(string token)
-   {
-      return ParserToken(token, "email");
-   }
-    
    public static string? GetUsername(string token)
    {
       return ParserToken(token, "username");
@@ -31,12 +26,11 @@ public class Jwt
       return tokenData.Claims.FirstOrDefault(c => c.Type.Split('/').Last() == role)?.Value;
    }
     
-   public static List<Claim> GetClaims(int id, string email, string username, string role)
+   public static List<Claim> GetClaims(int id, string username, string role)
    {
       var claims = new List<Claim>()
       {
          new Claim("accountId", id.ToString()),
-         new Claim("email", email),
          new Claim("username", username),
          new Claim("role", role),
       };
