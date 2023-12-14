@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RentCarWorkship.Models.Db;
 using RentCarWorkship.Models.Dto;
 using RentCarWorkship.Repository.Interface;
+using RentCarWorkship.Services.Interface;
 
 namespace RentCarWorkship.Controllers;
 
@@ -11,29 +12,30 @@ namespace RentCarWorkship.Controllers;
 [Route("Car")]
 public class CarController : BaseController
 {
-    private readonly ICarRepository _carRepository;
+    private readonly ICarService _carService;
 
-    public CarController(ICarRepository carRepository)
+    public CarController(ICarService carService)
     {
-        this._carRepository = carRepository;
+        this._carService = _carService;
     }
     [AllowAnonymous]
     [HttpGet("id")]
     public async Task<DbCar> GetCar(int id)
     {
-        return await _carRepository.GetInfoById(id);
+        return await _carService.GetInfoById(id);
     }
+    
 
     [HttpPost]
     public async Task<IActionResult> AddCar(DbCar car)
     {
-        if (await _carRepository.CheckCar(car.CarId))
+        if (await _carService.CheckCar(car.CarId))
         {
             return BadRequest("car already exist");
         }
         else
         {
-            await _carRepository.AddCar(car);
+            await _carService.AddCar(car);
             return Ok("car was added");
         }
     }
@@ -41,9 +43,9 @@ public class CarController : BaseController
     [HttpPut]
     public async Task<IActionResult> UpdateCar(UpdateCarDto car)
     {
-        if (await _carRepository.CheckCar(car.id))
+        if (await _carService.CheckCar(car.id))
         {
-            _carRepository.UpdateCar(car);
+            _carService.UpdateCar(car);
             return Ok("car was updated");
         }
 
@@ -53,13 +55,13 @@ public class CarController : BaseController
     [HttpDelete]
     public async Task<IActionResult> DeleteCar(int id)
     {
-        if (await _carRepository.CheckCar(id))
+        if (await _carService.CheckCar(id))
         {
-            if (Id != await _carRepository.GetUserById(id))
+            if (Id != await _carService.GetUserById(id))
             {
                 return Unauthorized();
             }
-            _carRepository.DeleteCar(id);
+            _carService.DeleteCar(id);
             return Ok("car have been deleted");
         }
         else

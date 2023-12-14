@@ -73,4 +73,21 @@ public class CarRepository: ICarRepository
     {
         connection.ExecuteAsync($@"delete from cars where CarId = {id}");
     }
+
+    public async Task<bool> CheckCarForRent(Rent search)
+    {
+        return await connection.QueryFirstOrDefaultAsync(@$"select * from cars where latitude <= {search.lat + search.radius} and 
+                         longitude = {search.longs + search.radius} and TransportType = {search.type} ") != null;
+    }
+    public List<DbCar> GetCarsForRent(Rent search)
+    {
+        return connection.Query<DbCar>(@$"select * from cars where CanBeRented = {1} latitude <= {search.lat + search.radius} and 
+                         longitude = {search.longs + search.radius} and TransportType = {search.type} ").ToList();
+    }
+    public async Task<DbCar> GetCarById(int id)
+    {
+        return await connection.QueryFirstOrDefaultAsync($@"select model, color, minutePrice, dayPrice from cars
+        where id = {id}");
+    }
+    
 }

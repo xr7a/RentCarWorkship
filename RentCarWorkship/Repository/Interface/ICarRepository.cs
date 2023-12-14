@@ -11,4 +11,6 @@ public interface ICarRepository
     Task<int> AddCar(DbCar car);
     void UpdateCar(UpdateCarDto car);
     void DeleteCar(int id);
+    Task<bool> CheckCarForRent(Rent search);
+    List<DbCar> GetCarsForRent(Rent search);
 }
