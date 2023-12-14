@@ -1,6 +1,7 @@
 using System.Data;
 using RentCarWorkship.Repository.Interface;
 using Dapper;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using RentCarWorkship.Common;
 using RentCarWorkship.Models.Db;
 
@@ -14,11 +15,27 @@ public class AccountRepository: IAccountRepository
     {
         this.connection = connection;
     }
+    
+    public List<DbAccount> AllUsers()
+    {
+        return connection.Query<DbAccount>("select * from users").ToList();
+    }
+
+    public async Task<DbAccount> GetAccount(int id)
+    {
+        return await connection.QueryFirstOrDefaultAsync<DbAccount>($@"select * from accounts
+        where id = {id}");
+    }
+
 
     public async Task<bool> CheckAccount(string username){
     
             return await connection.QueryFirstOrDefaultAsync<DbAccount>(
                 $@"select id from accounts where username = '{username}' ") != null;
+    }public async Task<bool> CheckAccountById(int id){
+    
+            return await connection.QueryFirstOrDefaultAsync<DbAccount>(
+                $@"select id from accounts where id = '{id}' ") != null;
     }
 
     [Obsolete("Obsolete")]

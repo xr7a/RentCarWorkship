@@ -61,12 +61,13 @@ public class AccountController: BaseController
         {
             Username = req.Username,
             Password = req.Password,
-            Role = req.Role,
+            Role = "user",
+            Balance = 0,
             RefreshToken = refreshToken,
             RefreshTokenExpiredTime = DateTime.UtcNow.Add(TimeSpan.FromHours(72))
                 
         });
-        var claims = Jwt.GetClaims(id, req.Username, req.Role);
+        var claims = Jwt.GetClaims(id, req.Username, "user");
         var accessToken = _jwtService.CreateToken(claims, 1);
         return Ok(new AuthDtoResponse()
         {
